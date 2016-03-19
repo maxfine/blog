@@ -147,7 +147,6 @@ return [
         //附加
         Zizaco\Entrust\EntrustServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        App\Providers\MaxfineEditorServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\MaxfineFormServiceProvider::class,

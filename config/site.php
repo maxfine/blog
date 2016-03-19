@@ -58,5 +58,7 @@ return [
         'access_key' => env('QINIU_AK', '7uuXy55ekyLfIw9gwI2Jr4Oin_9qHIQQfXi4ijL1'), //for test
         'secret_key' => env('QINIU_SK', 'FX8P2NE_iE2TR0pwMkK1f3ZErGqGlsmjffCOIZUq'), //for test
         'bucket'     => env('QINIU_BT', 'poly')
-    ]
+    ],
+
+    'admin_role_name' => 'admin',
 ];

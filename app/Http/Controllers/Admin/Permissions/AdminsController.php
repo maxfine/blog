@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin\Permissions;
 use App\Http\Controllers\BaseController;
 use App\Models\Role;
 use App\Models\User;
-use App\Http\Requests\RoleCreateRequest;
-use App\Http\Requests\RoleUpdateRequest;
+use App\Http\Requests\AdminCreateRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Repositories\UserRepository;
-use App\Jobs\RoleFormFields;
+use App\Jobs\AdminFormFields;
 use Form;
 
 /**
@@ -64,7 +64,7 @@ class AdminsController extends BaseController {
         $roles = Role::all();
 
         foreach ($paginate as $user) {
-            $user['role'] = $user->roles();
+            $user['role'] = $user->roles;
         }
 
         return $this->view($this->uri.'.index', compact('results', 'roles'));
@@ -76,7 +76,7 @@ class AdminsController extends BaseController {
      */
     public function create()
     {
-        $data = $this->dispatch(new RoleFormFields());
+        $data = $this->dispatch(new AdminFormFields());
 
         return $this->view($this->uri . '.create', compact('data'));
     }
@@ -86,9 +86,16 @@ class AdminsController extends BaseController {
      * @param CreateRoleRequest $request
      * @return View
      */
-    public function store(RoleCreateRequest $request)
+    public function store(AdminCreateRequest $request)
     {
-        $role = Role::create($request->postFillData());
+        $user = User::create($request->postFillData());
+        /**
+         * ---------------------------------------------------------
+         * 分配管理员角色
+         * ---------------------------------------------------------
+         */
+        $adminRole = Role::where('name', '=', config('site.admin_role_name', 'admin'))->first();
+        if(!empty($user) && !empty($adminRole)) $user->attachRole($adminRole->id);
 
         return redirect()
             ->route($this->uri . '.index')
@@ -103,7 +110,7 @@ class AdminsController extends BaseController {
      */
     public function edit($id)
     {
-        $data = $this->dispatch(new RoleFormFields($id));
+        $data = $this->dispatch(new AdminFormFields($id));
 
         return $this->view($this->uri . '.edit', compact('data'));
     }
@@ -114,9 +121,9 @@ class AdminsController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update(RoleUpdateRequest $request, $id)
+    public function update(AdminUpdateRequest $request, $id)
     {
-        $role = Role::findOrFail($id);
+        $role = User::findOrFail($id);
         $role->fill($request->postFillData());
         $role->save();
 
@@ -126,21 +133,22 @@ class AdminsController extends BaseController {
     }
 
     /**
-     * 分配权限
+     * 分配角色
      */
-    public function assignPermission(Request $request)
+    public function assignRole(Request $request)
     {
-        $role = Role::find($request->get('id'));
-        $permissions = $request->except(['_token', 'id']);
-        $role->detachPermissions($role->permissions());
-        foreach($permissions as $name => $status){
-            $permission = Permission::whereName($name)->first();
+        $user = User::find($request->get('id'));
+        $roles = $request->except(['_token', 'id']);
+        $user->detachRoles($user->roles()->get());
+        foreach($roles as $name => $status){
+            $role = Role::whereName($name)->first();
             if ($status == 'on') {
-                $role->attachPermission($permission);
+                $user->attachRole($role->id);
             }
         }
+
         return redirect()
             ->route($this->uri . '.index')
-            ->withSuccess('权限分配成功');
+            ->withSuccess('角色分配完成');
     }
 }

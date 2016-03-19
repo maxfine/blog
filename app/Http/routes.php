@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['ad
         Route::resource('permissions', 'PermissionsController');
         Route::resource('admins', 'AdminsController');
         Route::post('roles/assign-permission', ['as' => 'admin.roles.assign-permission', 'uses' => 'RolesController@assignPermission']);
-        Route::post('admins/assign-role', ['as' => 'admin.roles.assign-role', 'uses' => 'AdminsController@assignRole']);
+        Route::post('admins/assign-role', ['as' => 'admin.admins.assign-role', 'uses' => 'AdminsController@assignRole']);
     });
 
     //文章管理

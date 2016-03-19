@@ -1,0 +1,1 @@
+@extends('blog.layouts.index')

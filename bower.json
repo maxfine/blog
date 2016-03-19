@@ -1,0 +1,55 @@
+{
+  "name": "maxfine",
+  "description": "blog",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "blog"
+  ],
+  "authors": [
+    "maxfine <max_fine@qq.com>"
+  ],
+  "license": "0.0.1",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/bower_dl",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "fancybox": "~2.1.5",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "fontawesome#~4.5.0",
+    "datatables": "~1.10.10",
+    "datatables-plugins": "~1.10.10",
+    "requirejs": "~2.1.22",
+    "seajs": "~3.0.0",
+    "moment": "~2.11.1",
+    "highlight": "~9.1.0",
+    "jquery.fitvids": "FitVids#~1.1.0",
+    "animate.css": "~3.5.1",
+    "metisMenu": "~2.4.0",
+    "slimScroll": "~1.3.7",
+    "layer": "*",
+    "iCheck": "~1.0.2",
+    "jquery-validation": "~1.14.0",
+    "Waves": "waves#~0.7.4",
+    "selectize": "~0.12.1",
+    "pickadate": "~3.5.6",
+    "bootstrap-markdown": "master",
+    "markdown": "~0.5.0",
+    "to-markdown": "~1.3.0",
+    "marked": "~0.3.5",
+    "datetimepicker": "~2.5.1",
+    "jquery-mousewheel": "~3.1.13",
+    "plupload": "~2.1.8",
+    "bootstrap-treeview": "~1.2.0",
+    "dropzone": "~4.3.0",
+    "remodal": "~1.0.6"
+  }
+}

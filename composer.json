@@ -9,7 +9,6 @@
         "laravel/framework": "5.1.*",
         "zizaco/entrust": "dev-laravel-5",
         "laravelcollective/html": "5.1.*",
-        "yuanchao/laravel-5-markdown-editor": "dev-master",
         "jenssegers/date": "^3.1",
         "graham-campbell/markdown": "^6.0",
         "michelf/php-markdown": "^1.6",

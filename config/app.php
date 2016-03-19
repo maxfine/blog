@@ -146,7 +146,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         //附加
         Zizaco\Entrust\EntrustServiceProvider::class,
-        YuanChao\Editor\EndaEditorServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         App\Providers\MaxfineEditorServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
@@ -208,7 +207,6 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
         'Date' => Jenssegers\Date\Date::class,
         'role' => Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => Zizaco\Entrust\Middleware\EntrustPermission::class,

@@ -62,7 +62,7 @@ class CategoryFormFields extends Job implements SelfHandling
 
         /**
          * ---------------------------------------------------------
-         * 得到所有栏目, 排除自己(不能自己作为自己的父栏目)
+         * 得到所有栏目, 排除自己(不能自己和自己的子栏目作为自己的父栏目)
          * ---------------------------------------------------------
          * EG: $categories = [['label'=>$name, 'value'=>$id], ..]
          */
@@ -71,7 +71,9 @@ class CategoryFormFields extends Job implements SelfHandling
             $allCategories[$k] = ['label'=>$category->name, 'value'=>$category->id];
         }
         if($this->id) {
-            $allCategories = array_except($allCategories, $this->id);
+            $exceptIds = $childIds = array_keys($this->category->getChilds($this->id));
+            array_unshift($exceptIds, $this->id);
+            $allCategories = array_except($allCategories, $exceptIds);
         }
         array_unshift($allCategories, ['label'=>'≡ 作为一级栏目 ≡', 'value'=>0]);
 

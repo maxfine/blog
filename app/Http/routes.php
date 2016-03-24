@@ -12,6 +12,7 @@
 */
 
 Route::get('test', function () {
+    dump(array_except([1=>11, 2=> 22, 3=>33], [1, 2]));
     // role attach alias
 //    $user = App\Models\User::join('role_user', 'users.id', '=', 'role_user.user_id')->whereIn('role_user.role_id', [1, 2])->first();
 //    dump($user->roles);

@@ -22,7 +22,7 @@
                         @foreach($tagClloud as $data)
                             <a href="{{ $data->url }}">{{ $data->tag }}</a>
                         @endforeach
-                        <a href="{{ URL('tag-cloud') }}">...</a>
+                        <a href="{{ URL('tags/index') }}">...</a>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ use App\Models\Post;
 use App\Jobs\BlogIndexData;
 use App\Repositories\CategoryRepository;
 
-class TagController extends BaseController
+class TagsController extends BaseController
 {
     public function __construct($name = '标签', $uri = '', CategoryRepository $category)
     {
@@ -46,13 +46,18 @@ class TagController extends BaseController
 
         $posts = $data['posts'];
         $tag = $data['tag'];
-        $layout = !empty($tag->layout)? $tag->layout : $this->uri . '.index';
+        $layout = !empty($tag->layout)? $tag->layout : $this->uri . '.list_posts';
 
         return view($layout, compact('tag', 'posts'));
     }
 
+    /**
+     * 标签首页
+     */
     public function index()
     {
-        //todo
+        $tags = Tag::all();
+
+        return view('tags.index', compact('tags'));
     }
 }

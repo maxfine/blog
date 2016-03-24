@@ -15,7 +15,7 @@ use File;
 
 class ImageController extends BaseController
 {
-    public function __construct($name = 'markdown图片ajax上传')
+    public function __construct($name = '图片上传')
     {
         parent::__construct($name);
     }

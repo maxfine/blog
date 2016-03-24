@@ -48,18 +48,9 @@
                             关于作者 <a href="javascript:;">maxfine</a>
                         </div>
                         <div class="bio">
-                            主站点：http://www.edc80.com/ 个人简介：http://me.edc80.com<br>
                             由于学艺不精，内容可能有误。如有错误欢迎联系邮箱max_fine@qq.com指出。谢谢！
                         </div>
                     </div>
-                </div>
-
-                <div class="prev-next-wrap clearfix">
-
-                    <a class="btn btn-default" href="/"><i class="fa fa-angle-left fa-fw"></i> 上一篇</a>
-                    &nbsp;
-
-                    <a class="btn btn-default" href="/">下一篇 <i class="fa fa-angle-right fa-fw"></i></a>
                 </div>
 
                 <!-- 多说评论框 start -->

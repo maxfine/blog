@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGroup extends Model
 {
-    //
+    protected $fillable = ['name', 'discount', 'point'];
 }

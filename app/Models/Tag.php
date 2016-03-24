@@ -24,7 +24,7 @@ class Tag extends Model
 
     public function getUrlAttribute()
     {
-        return url('/tag/'. $this->attributes['tag']);
+        return url('/tags/list_posts/'. $this->attributes['tag']);
     }
 
     /**

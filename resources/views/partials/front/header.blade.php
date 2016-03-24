@@ -17,8 +17,8 @@
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
                         {!! HTML::menu_active('blog', '首页', ['class'=>'nav-current']) !!}
-                        {!! HTML::menu_active('tag/php', 'PHP', ['class'=>'nav-current']) !!}
-                        {!! HTML::menu_active('tag/mysql', 'MYSQL', ['class'=>'nav-current']) !!}
+                        {!! HTML::menu_active('tags/list_posts/php', 'PHP', ['class'=>'nav-current']) !!}
+                        {!! HTML::menu_active('tags/list_posts/mysql', 'MYSQL', ['class'=>'nav-current']) !!}
                     </ul>
                 </div>
             </div>

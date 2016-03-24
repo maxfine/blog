@@ -1,31 +1,34 @@
 <?php
-namespace App\Http\Controllers\Admin\Permissions;
+
+namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Role;
 use App\Models\User;
-use App\Http\Requests\AdminCreateRequest;
-use App\Http\Requests\AdminUpdateRequest;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Repositories\UserRepository;
-use App\Jobs\AdminFormFields;
+use App\Jobs\UserFormFields;
 use Form;
 
-/**
- * 管理员
- * Class RolesController
- * @package App\Http\Controllers
- */
-class AdminsController extends BaseController {
 
-    public function __construct($name = '管理员', $uri = '', UserRepository $user)
+class UsersController extends BaseController
+{
+    public function __construct($name = '用户', $uri = '', UserRepository $user)
     {
         parent::__construct($name);
         $this->middleware('admin.permission:admin');
         $this->user = $user;
     }
 
+    /**
+     * 首页
+     *
+     * @param Request $request
+     * @return \App\Http\Controllers\View
+     */
     public function index(Request $request)
     {
         $results = [
@@ -56,7 +59,7 @@ class AdminsController extends BaseController {
         ];
 
         $params = $request->all();
-        $paginate = $this->user->index($params);
+        $paginate = $this->user->index($params, 'customer');
         $results['items'] = $paginate;
         $results['params'] = $params;
 
@@ -71,57 +74,55 @@ class AdminsController extends BaseController {
     }
 
     /**
+     * 创建页面
      *
-     * @return View
+     * @return \App\Http\Controllers\View
      */
     public function create()
     {
-        $data = $this->dispatch(new AdminFormFields());
+        $data = $this->dispatch(new UserFormFields());
 
         return $this->view($this->uri . '.create', compact('data'));
     }
 
     /**
+     * 保存
      *
-     * @param CreateRoleRequest $request
-     * @return View
+     * @param UserCreateRequest $request
+     * @return mixed
      */
-    public function store(AdminCreateRequest $request)
+    public function store(UserCreateRequest $request)
     {
         $user = User::create($request->postFillData());
-        /**
-         * ---------------------------------------------------------
-         * 分配管理员角色
-         * ---------------------------------------------------------
-         */
-        $adminRole = Role::where('name', '=', config('site.admin_role_name', 'admin'))->first();
-        if(!empty($user) && !empty($adminRole)) $user->attachRole($adminRole->id);
 
-        return redirect()
-            ->route($this->uri . '.index')
-            ->withSuccess('角色已经创建成功');
+        if($user){
+            return redirect()
+                ->route($this->uri . '.index')
+                ->withSuccess('用户已经创建成功');
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 编辑页面
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return \App\Http\Controllers\View
      */
     public function edit($id)
     {
-        $data = $this->dispatch(new AdminFormFields($id));
+        $data = $this->dispatch(new UserFormFields($id));
 
         return $this->view($this->uri . '.edit', compact('data'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 更新
      *
-     * @param  int  $id
-     * @return Response
+     * @param UserUpdateRequest $request
+     * @param $id
+     * @return mixed
      */
-    public function update(AdminUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->fill($request->postFillData());
@@ -129,7 +130,7 @@ class AdminsController extends BaseController {
 
         return redirect()
             ->route($this->uri . '.index')
-            ->withSuccess('角色更新完成');
+            ->withSuccess('更新完成');
     }
 
     /**

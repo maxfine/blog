@@ -79,7 +79,7 @@ class UserRepository extends BaseRepository
                     })
                 ->orderBy('id', 'desc')
                 ->paginate($size);
-        } else {
+        } elseif($type == 'customer') {
             $users = $this->model->customer()
                 ->where(
                     function ($query) use ($data) {

@@ -14,7 +14,7 @@
                                </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="J_menuItem" href="{{ URL('admin/user/1') }}">个人资料</a>
+                        <li><a class="J_menuItem" href="{{ URL('admin/admins/'. \Auth::user()->id .'/edit') }}">修改个人资料</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{{ URL('auth/admin/logout') }}">安全退出</a>

@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('test/{id}', function ($idd) {
+Route::get('test', function () {
     // role attach alias
 //    $user = App\Models\User::join('role_user', 'users.id', '=', 'role_user.user_id')->whereIn('role_user.role_id', [1, 2])->first();
 //    dump($user->roles);
-    $users = App\Models\User::customer()->get(); // parameter can be an Role object, array, or id
+    $users = \App\Models\User::customer()->get(); // parameter can be an Role object, array, or id
     dump($users);
 /*    dump($idd);
     dump(request()->route('id'));
@@ -32,7 +32,8 @@ Route::resource('blog', 'Blog\BlogController');
 Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
     Route::get('slug/{slug}', 'BlogController@showBySlug');
 });
-Route::get('tag/{tag}', ['as'=>'tag', 'uses'=>'Tag\TagController@listPosts']);
+Route::get('tags/list_posts/{tag}', 'Tag\TagsController@listPosts');
+Route::get('tags/index', ['as'=>'tags.index', 'uses'=>'Tag\TagsController@index']);
 
 //后台登录
 Route::get('auth/admin/login', 'Auth\Admin\AuthController@getLogin');
@@ -48,7 +49,11 @@ Route::group(['prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['ad
     Route::get('index', ['as' => 'admin.index', 'uses' => 'HomeController@index']);
 
     //用户管理
-    Route::resource('users', 'UsersController');
+    Route::resource('users', 'Users\UsersController');
+    Route::post('users/assign-role', ['as' => 'admin.users.assign-role', 'uses' => 'Users\UsersController@assignRole']);
+
+    //用户组管理
+    Route::resource('user_groups', 'Users\UserGroupsController');
 
     Route::get('qiniu/upload-token', ['as'=>'admin.qiniu.upload-token', 'uses'=>'Upload\QiniuController@token']);
 

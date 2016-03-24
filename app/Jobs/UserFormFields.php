@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Models\Category;
-use Carbon\Carbon;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Contracts\Bus\SelfHandling;
-use App\Repositories\CategoryRepository;
 
-class CategoryFormFields extends Job implements SelfHandling
+class UserFormFields extends Job implements SelfHandling
 {
-
     /**
      * The id (if any) of the Post row
      *
@@ -24,13 +23,9 @@ class CategoryFormFields extends Job implements SelfHandling
      */
     protected $fieldList = [
         'name' => '',
-        'parent_id' => 0,
-        'keywords' => '',
-        'image' => '',
-        'description' => '',
-        'list_order' => 100,
-        'show_in_nav' => 0,
-        'is_show' => 1,
+        'email' => '',
+        'password' => '',
+        'group_id' => null,
     ];
 
     /**
@@ -41,7 +36,6 @@ class CategoryFormFields extends Job implements SelfHandling
     public function __construct($id = null)
     {
         $this->id = $id;
-        $this->category = app()->make(CategoryRepository::class);
     }
 
     /**
@@ -56,28 +50,25 @@ class CategoryFormFields extends Job implements SelfHandling
         if ($this->id) {
             $fields = $this->fieldsFromModel($this->id, $fields);
         }
+
         foreach ($fields as $fieldName => $fieldValue) {
             $fields[$fieldName] = old($fieldName, $fieldValue);
         }
 
         /**
          * ---------------------------------------------------------
-         * 得到所有栏目, 排除自己(不能自己作为自己的父栏目)
+         * 得到所有会员组
          * ---------------------------------------------------------
-         * EG: $categories = [['label'=>$name, 'value'=>$id], ..]
+         * EG: $groups = [['label'=>$name, 'value'=>$id], ..]
          */
-        $allCategories = $this->category->getSelectChilds();
-        foreach($allCategories as $k=>$category){
-            $allCategories[$k] = ['label'=>$category->name, 'value'=>$category->id];
+        $allGroups = UserGroup::all()->toArray();
+        foreach($allGroups as $k=>$group){
+            $allGroups[$k] = ['label'=>$group['name'], 'value'=>$group['id']];
         }
-        if($this->id) {
-            $allCategories = array_except($allCategories, $this->id);
-        }
-        array_unshift($allCategories, ['label'=>'≡ 作为一级栏目 ≡', 'value'=>0]);
-
+        array_unshift($allGroups, ['label'=>'≡ 请选择会员组 ≡', 'value'=>null]);
         return array_merge(
             $fields,
-            ['allCategories' => $allCategories]
+            ['allGroups' => $allGroups]
         );
     }
 
@@ -90,12 +81,13 @@ class CategoryFormFields extends Job implements SelfHandling
      */
     protected function fieldsFromModel($id, array $fields)
     {
-        $category = Category::findOrFail($id);
-        $fieldNames = array_keys($fields);
-        $fields = ['id' => $id];
+        $user = User::customer()->findOrFail($id);
 
+        $fieldNames = array_keys($fields);
+
+        $fields = ['id' => $id];
         foreach ($fieldNames as $field) {
-            $fields[$field] = $category->{$field};
+            $fields[$field] = $user->{$field};
         }
 
         return $fields;

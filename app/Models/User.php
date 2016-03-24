@@ -29,7 +29,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'remember_token', 'group_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -40,16 +40,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    //限定管理型用户
+    /**
+     * 限定管理员
+     */
     public function scopeManager($query)
     {
         $query->join('role_user', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', '=' ,1);
     }
 
-    //限定投资型客户
+    /**
+     * 限定普通会员
+     * 所有关联role_id不等于1
+     */
     public function scopeCustomer($query)
     {
-        $query->join('role_user', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', '!=' ,1);
+        // todo-优化sql
+        $query->whereNotIn('id', $this->manager()->lists('id'));
     }
 
     /**

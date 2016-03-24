@@ -19,7 +19,7 @@ class CreateTagsTable extends Migration
             $table->string('subtitle');
             $table->string('image');
             $table->string('description');
-            $table->string('layout')->default('tag.layouts.index');
+            $table->string('layout')->default('tags.layouts.list_posts');
             $table->boolean('reverse_direction');
             $table->timestamps();
         });

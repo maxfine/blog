@@ -44,6 +44,7 @@ class RolesController extends BaseController {
                         $buttons = [
                             ['编辑'],
                         ];
+                        array_push($buttons, ['name' => '删除', 'method' => 'DELETE', 'class' => 'btn-danger']);
                         array_push($buttons, ['分配权限', '#modal']);
                     }
                     return $buttons;
@@ -123,6 +124,19 @@ class RolesController extends BaseController {
         return redirect()
             ->route($this->uri . '.index')
             ->withSuccess('角色更新完成');
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $this->role->destroy($id);
+
+        return $this->toIndex();
     }
 
     /**

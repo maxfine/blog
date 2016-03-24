@@ -47,6 +47,7 @@ class UsersController extends BaseController
                         $buttons = [
                             ['编辑'],
                         ];
+                        array_push($buttons, ['name' => '删除', 'method' => 'DELETE', 'class' => 'btn-danger']);
                         array_push($buttons, ['分配角色', '#modal']);
                     }
                     return $buttons;
@@ -151,5 +152,17 @@ class UsersController extends BaseController
         return redirect()
             ->route($this->uri . '.index')
             ->withSuccess('角色分配完成');
+    }
+
+    /**
+     * 删除用户
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $this->user->destroy($id);
+
+        return $this->toIndex();
     }
 }

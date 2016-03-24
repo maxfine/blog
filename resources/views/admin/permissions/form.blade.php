@@ -1,6 +1,6 @@
-{!! Form::group_text('name','组名称', ['label_col'=>3, 'placeholder'=>'请输入组名称', 'percent'=>1], 1) !!}
+{!! Form::group_text('name','系统名称', ['label_col'=>3, 'placeholder'=>'请输入系统名称', 'percent'=>1], 1) !!}
 
-{!! Form::group_text('discount','折扣', ['label_col'=>3, 'placeholder'=>'请输入折扣百分比', 'percent'=>1], 1) !!}
+{!! Form::group_text('display_name','显示名称', ['label_col'=>3, 'placeholder'=>'请输入显示名称', 'percent'=>1], 1) !!}
 
-{!! Form::group_text('point','升级积分', ['label_col'=>3, 'placeholder'=>'请输入升级所需积分', 'percent'=>1], 1) !!}
+{!! Form::group_text('description','权限描述', ['label_col'=>3, 'placeholder'=>'请输入权限描述', 'percent'=>1], 1) !!}
 

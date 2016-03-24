@@ -49,7 +49,20 @@ class PermissionRepository extends BaseRepository
      */
     public function destroy($id = 0, $extra = '')
     {
+        /**
+         * ---------------------------------------------------------
+         * 级联清除角色与权限的关系
+         * ---------------------------------------------------------
+         */
         $permission = $this->model->findOrFail($id);
+
+        /**
+         * ---------------------------------------------------------
+         * detach清除中间表关联数据
+         * ---------------------------------------------------------
+         */
+        $permission->roles()->detach();
+
         return $permission->delete();
     }
 

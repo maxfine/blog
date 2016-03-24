@@ -43,6 +43,7 @@ class PermissionsController extends BaseController {
                         $buttons = [
                             ['编辑'],
                         ];
+                        array_push($buttons, ['name' => '删除', 'method' => 'DELETE', 'class' => 'btn-danger']);
                     }
                     return $buttons;
                 }]
@@ -116,4 +117,16 @@ class PermissionsController extends BaseController {
             ->withSuccess($this->getPageName() . '更新完成');
     }
 
+    /**
+     * 删除权限
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $this->permission->destroy($id);
+
+        return $this->toIndex();
+    }
 }

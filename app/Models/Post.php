@@ -99,6 +99,11 @@ class Post extends Model
      */
     public function syncTags(array $tags)
     {
+        /**
+         * ---------------------------------------------------------
+         * 添加没有的标签
+         * ---------------------------------------------------------
+         */
         Tag::addNeededTags($tags);
 
         /**

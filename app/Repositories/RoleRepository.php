@@ -50,6 +50,7 @@ class RoleRepository extends BaseRepository
     public function destroy($id = 0, $extra = '')
     {
         $role = $this->model->findOrFail($id);
+        $role->perms()->detach();
         return $role->delete();
     }
 

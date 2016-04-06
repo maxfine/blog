@@ -11,14 +11,36 @@
 |
 */
 
+Route::get('publish', function () {
+    // 路由逻辑...
+    Rds::publish('test-channel', json_encode(['foo' => 'bar']));
+});
+
 Route::get('test', function () {
-    dump(array_diff([1=>11, 2=> 22, 3=>33], [1=>22, 2=>22]));
-    dump(array_except([1=>11, 2=> 22, 3=>33], [1, 2]));
-    // role attach alias
+//    App\Cache\SystemOptionCache::cacheStatic();
+//    dump(Cache::tags(['system', 'static'])->get('website_keywords'));
+//    Cache::tags(['aa', 'bb'])->forever('cp1', '手机');
+//    Cache::tags(['aa', 'dd'])->forever('cp2', '电脑');
+//    $pro2 = Cache::tags(['aa', 'dd'])->get('cp2');
+//    dump($pro2);
+//    Redis集合
+//    $key = 'posts2';
+//    Rds::sadd($key, 'title-test2');
+//    Rds::sadd($key, 'title-test3');
+//    Rds::sadd($key, 'title-test4');
+//    $num = Rds::scard($key);
+//    $value = Rds::smembers($key);
+//    dump($num);
+//    dump($value);
+//    Cache::put('key-test', 'value-t', 10);
+//    dump(Cache::get('key-test'));
+//    dump(array_diff([1=>11, 2=> 22, 3=>33], [1=>22, 2=>22]));
+//    dump(array_except([1=>11, 2=> 22, 3=>33], [1, 2]));
+//    role attach alias
 //    $user = App\Models\User::join('role_user', 'users.id', '=', 'role_user.user_id')->whereIn('role_user.role_id', [1, 2])->first();
 //    dump($user->roles);
-    $users = \App\Models\User::customer()->get(); // parameter can be an Role object, array, or id
-    dump($users);
+//    $users = \App\Models\User::customer()->get(); // parameter can be an Role object, array, or id
+//    dump($users);
 /*    dump($idd);
     dump(request()->route('id'));
     $faker = Faker\Factory::create('zh_CN');

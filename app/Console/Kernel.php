@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\Routing\BaseControllerMakeCommand::class,
+        \App\Console\Commands\RedisSubscribe::class,
     ];
 
     /**

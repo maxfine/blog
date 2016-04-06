@@ -15,7 +15,9 @@
         "michelf/php-smartypants": "1.6.0-beta1",
         "doctrine/dbal": "^2.5",
         "erusev/parsedown": "^1.6",
-        "qiniu/php-sdk": "^7.0"
+        "qiniu/php-sdk": "^7.0",
+        "predis/predis": "~1.0.1",
+        "yuanchao/laravel-5-markdown-editor": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

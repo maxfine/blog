@@ -48,7 +48,7 @@
                             关于作者 <a href="javascript:;">maxfine</a>
                         </div>
                         <div class="bio">
-                            主站点：http://www.edc80.com/ 个人简介：http://me.edc80.com<br>
+                            主站点：http://www.edc80.com/ 个人简介：http://konghansheng.digitcv.com<br>
                             由于学艺不精，内容可能有误。如有错误欢迎联系邮箱max_fine@qq.com指出。谢谢！
                         </div>
                     </div>

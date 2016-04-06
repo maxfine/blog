@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b68b1eefdc63864358b8f33839dd9974",
+    "hash": "969a3ce8e86250fc714762bb1a0a5700",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1625,6 +1625,56 @@
             "time": "2016-01-06 13:31:20"
         },
         {
+            "name": "predis/predis",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/nrk/predis/84060b9034d756b4d79641667d7f9efe1aeb8e04.zip",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-07-30 18:34:15"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -2716,7 +2766,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/yccphp/laravel-5-markdown-editor/ce1e1d1f9cbb3a6382066fafbf653c3346ab524b.zip",
+                "url": "https://packagist.phpcomposer.com/files/yccphp/laravel-5-markdown-editor/ce1e1d1f9cbb3a6382066fafbf653c3346ab524b.zip",
                 "reference": "ce1e1d1f9cbb3a6382066fafbf653c3346ab524b",
                 "shasum": ""
             },
@@ -4153,8 +4203,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zizaco/entrust": 20,
-        "yuanchao/laravel-5-markdown-editor": 20,
-        "michelf/php-smartypants": 10
+        "michelf/php-smartypants": 10,
+        "yuanchao/laravel-5-markdown-editor": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

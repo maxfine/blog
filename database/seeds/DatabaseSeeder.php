@@ -39,9 +39,17 @@ class DatabaseSeeder extends Seeder
          * 文章
          * 2016-2-22 19:38:44
          * ---------------------------------------------------------
-         */
         $this->call(CategoriesTableSeeder::class);
         $this->call(PostsTableSeeder::class);
+         */
+
+        /**
+         * ---------------------------------------------------------
+         * 系统静态配置
+         * 2016-3-27 23:13:12
+         * ---------------------------------------------------------
+         */
+        $this->call(SystemOptionsSeeder::class);
 
 
         Model::reguard();

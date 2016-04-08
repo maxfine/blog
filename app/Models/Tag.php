@@ -49,7 +49,7 @@ class Tag extends Model
                 'subtitle' => 'Subtitle for '.$tag,
                 'image' => '',
                 'description' => '',
-                'layout' => 'tag.layouts.index',
+                'layout' => 'tags.layouts.list_posts',
                 'reverse_direction' => false,
             ]);
         }

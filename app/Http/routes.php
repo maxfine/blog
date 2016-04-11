@@ -17,12 +17,16 @@ Route::get('publish', function () {
 });
 
 Route::get('test', function () {
-//    App\Cache\SystemOptionCache::cacheStatic();
-//    dump(Cache::tags(['system', 'static'])->get('website_keywords'));
-//    Cache::tags(['aa', 'bb'])->forever('cp1', '手机');
-//    Cache::tags(['aa', 'dd'])->forever('cp2', '电脑');
-//    $pro2 = Cache::tags(['aa', 'dd'])->get('cp2');
-//    dump($pro2);
+    App\Cache\SystemOptionCache::uncacheStatic();
+    App\Cache\SystemOptionCache::cacheStatic();
+    $cacheTags = Cache::tags(['system', 'static']);  
+    if($website_title = $cacheTags->get('website_title')){
+        dump($cacheTags->has('logo'));
+        dump(!empty($cacheTags->get('logo')));
+        dump($website_title);
+    }
+    dump(Cache::tags(['system', 'static'])->get('website_title'));
+    dump(Cache::get('website_title'));
 //    Redis集合
 //    $key = 'posts2';
 //    Rds::sadd($key, 'title-test2');
@@ -99,6 +103,14 @@ Route::group(['prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['ad
     Route::resource('categories', 'CategoriesController');
     Route::post('categories/list_order', 'CategoriesController@listOrder');
     Route::post('categories/mulit_destroy', 'CategoriesController@mulitDestroy');
+
+    //系统配置
+    Route::get('system_options', [
+        'as' => 'admin.system_options.index', 'uses' => 'SystemOptionsController@index'
+    ]);
+    Route::post('system_options/update', [
+        'as' => 'admin.system_options.update', 'uses' => 'SystemOptionsController@update'
+    ]);
 });
 
 

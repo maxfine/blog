@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use URL;
 use Route;
+use App\Cache\SystemOptionCache;
+use Cache;
 
 class BaseController extends Controller
 {
@@ -32,8 +34,15 @@ class BaseController extends Controller
 
         if(isset($this->currentUser)) view()->share('currentUser', $this->currentUser);
 
+        /*
+         * ----------------------------------------------
+         * 缓存站点配置
+         * ----------------------------------------------
+         */
+        if (!SystemOptionCache::has('website_title')) {  //如果分类缓存不存在
+            SystemOptionCache::cacheStatic();
+        }
         //share the config option to all the views
-        //todo
         view()->share('pageTitle', $this->getPageTitle());
         view()->share('title', $this->getPageTitle());
         view()->share('pageName', $this->getPageName());

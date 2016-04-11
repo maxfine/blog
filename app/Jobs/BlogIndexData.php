@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\SelfHandling;
+use App\Cache\SystemOptionCache;
 
 class BlogIndexData extends Job implements SelfHandling
 {
@@ -50,11 +51,11 @@ class BlogIndexData extends Job implements SelfHandling
             ->paginate(config('blog.posts_per_page'));
 
         return [
-            'title' => config('blog.title'),
-            'subtitle' => config('blog.subtitle'),
+            'title' => SystemOptionCache::get('website_title', 'your title'),
+            'subtitle' => SystemOptionCache::get('website_subtitle', 'your subtitle'),
             'posts' => $posts,
-            'image' => config('blog.image'),
-            'description' => config('blog.description'),
+            'logo' => SystemOptionCache::get('logo', URL('assets/images/logo.png')),
+            'description' => SystemOptionCache::get('website_description', 'your description'),
             'reverse_direction' => false,
             'tag' => null,
         ];

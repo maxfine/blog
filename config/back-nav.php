@@ -117,4 +117,13 @@ return [
         'icon' => '',
         'active' => false,
     ],
+    [
+        'id' => 12,
+        'parent_id' => 1,
+        'title' => '系统配置',
+        'slug' => 'admin/system_options',
+        'url' => '',
+        'icon' => 'wrench',
+        'active' => false,
+    ]
 ];

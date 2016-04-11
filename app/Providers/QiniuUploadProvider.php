@@ -29,9 +29,10 @@ class QiniuUploadProvider extends ServiceProvider
 
     private function singleFileUpload()
     {
-        $handler = function ($name, $label, $percent = 0.5,$platform="qiniu") {
+        $handler = function ($name, $label, $percent = 0.5,$platform="qiniu", $value = null, $idName = '') {
             $js = '';
-            $value = MaxfineFormServiceProvider::parseValue($this->model, $name);
+            if(is_null($value)) $value = MaxfineFormServiceProvider::parseValue($this->model, $name);
+            $idName = !empty($idName) ? $idName : $name;
 
             /**
              * ---------------------------------------------------------
@@ -43,7 +44,7 @@ class QiniuUploadProvider extends ServiceProvider
             }else{
                 $url = $value ? config('site.qiniu.host') . $value : '/assets/images/upload_add.png';
             }
-            $js .= View::make('upload.upload')->with(['name'=>$name])->render(); //编译模板, 返回字符串
+            $js .= View::make('upload.upload')->with(['name'=>$idName])->render(); //编译模板, 返回字符串
             if(!QiniuUploadProvider::$single_inited){
                 $js = View::make('upload.upload_js')->render() . $js;
                 QiniuUploadProvider::$single_inited = true;
@@ -51,8 +52,8 @@ class QiniuUploadProvider extends ServiceProvider
             return $js.'<div class="form-group col-sm-' . ($percent * 12) . '">
                         ' . Form::form_label($label) . '
                         <div class="col-sm-9">
-                            <input id="' . $name . '" type="hidden" name="' . $name . '" type="text" value="' . $value . '">
-                            <img style="width:58px;height:58px;cursor:pointer;" id="' . $name . '_img" src="' . $url . '">
+                            <input id="' . $idName . '" type="hidden" name="' . $name . '" type="text" value="' . $value . '">
+                            <img style="width:58px;height:58px;cursor:pointer;" id="' . $idName . '_img" src="' . $url . '">
                         </div>
                     </div>';
         };

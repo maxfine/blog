@@ -12,10 +12,14 @@ use Config;
  * 操作数据表：system_options
  *
  * @author maxfine<max_fine@qq.com>
+ *
+ * 1. 如果没有缓存, 则进行缓存
+ * 2. 获取缓存
  */
 
 class SystemOptionCache
 {
+    protected static $tags = ['system', 'static'];
     
     /**
      * 缓存系统静态配置
@@ -36,11 +40,45 @@ class SystemOptionCache
         $cacheDrive = Config::get('cache.default');
         foreach($ststemOptions as $so) {
             if($cacheDrive === 'memcached' || $cacheDrive === 'redis') {
-                Cache::tags(['system', 'static'])->forever($so['name'], $so['value']);
+                Cache::tags(static::$tags)->forever($so['name'], $so['value']);
             } else {
                 Cache::forever($so['name'], $so['value']);
             }
         }
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     * 判断是否存在缓存
+     */
+    public static function has($name)
+    {
+        $cacheDrive = Config::get('cache.default');
+        if($cacheDrive === 'memcached' || $cacheDrive === 'redis') {
+            return Cache::tags(static::$tags)->has($name);
+        } else {
+            return Cache::has($name);
+        }
+
+    }
+
+    /**
+     * 获取缓存
+     * @param $name
+     */
+    public static function get($name, $default = null)
+    {
+        $value = null;
+
+        $cacheDrive = Config::get('cache.default');
+        if($cacheDrive === 'memcached' || $cacheDrive === 'redis') {
+            $value = Cache::tags(static::$tags)->get($name, $default);
+        } else {
+            $value = Cache::get($name, $default);
+        }
+
+        return $value;
     }
     
     /**
@@ -56,7 +94,7 @@ class SystemOptionCache
     {
         $cacheDrive = Config::get('cache.default');
         if ($cacheDrive === 'memcached' || $cacheDrive === 'redis') {
-            Cache::tags('system', 'static')->flush();
+            Cache::tags(static::$tags)->flush();
         }
     }
 }

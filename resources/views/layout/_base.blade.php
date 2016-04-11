@@ -3,8 +3,8 @@
 <head>
     <meta charset="@yield('charset', 'UTF-8')">
     <title>@yield('title', 'your title, 豪迈人生, 极致体验'){{-- 页面标题 --}}</title>
+    <meta name="keywords" content="@yield('keywords', 'your keywords, 豪迈人生, 极致体验')"/>
     <meta name="description" content="@yield('description', 'your description, 豪迈人生, 极致体验')"/>
-    <meta name="keywords" content="@yield('keywords', 'your keywords, 豪迈人生, 极致体验')}"/>
     <meta name="author" content="@yield('author', 'maxfine <max_fine@qq.com>')"/>
     <meta name="_token" content="@yield('_token', csrf_token())"/>
 

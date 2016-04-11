@@ -1,6 +1,8 @@
 @extends('layout._base')
 
-@section('title') {{ $title or 'your title' }} - {{ Cache::get('website_title','your website_title') }} @stop
+@section('title'){{ !empty($title) ? $title : App\Cache\SystemOptionCache::get('website_title','your website_title') }}@stop
+@section('keywords'){{ !empty($keywords) ? $keywords : App\Cache\SystemOptionCache::get('website_keywords','your website_keywords') }}@stop
+@section('description'){{ !empty($description) ? $description : App\Cache\SystemOptionCache::get('website_description','your website_description') }}@stop
 
 @section('meta')
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
